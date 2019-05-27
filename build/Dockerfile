@@ -21,6 +21,5 @@ RUN chmod +x /opt/letsencrypt/letsencrypt-auto; /opt/letsencrypt/letsencrypt-aut
 
 RUN apt-get clean; apt-get autoclean; apt-get autoremove -y -qq
 
-USER opencart
 ENV HOME /home/opencart
 WORKDIR /home/opencart
