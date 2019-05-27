@@ -2,17 +2,16 @@ version: '2'
 
 services:
   opencart:
+    image: trydirect/opencart:3.0.2
     build: .
-    image: ${REGISTRY}optimum/crm:opencart-3.0.2.0-s
     container_name: opencart
     hostname: opencart
-    user: root
     restart: always
     ports:
           - "443:443"
           - "80:80"
     volumes:
-        - ./app:/home/opencart
+    #    - ./app:/home/opencart
         - ./nginx:/etc/nginx/conf.d/
         - ./certs/letsencrypt:/etc/letsencrypt
         - ./certs/ssl:/etc/nginx/ssl
