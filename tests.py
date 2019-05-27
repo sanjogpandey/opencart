@@ -21,12 +21,17 @@ for c in client.containers.list():
 nginx = client.containers.get('opencart')
 nginx_cfg = nginx.exec_run("/usr/sbin/nginx -T")
 assert nginx.status == 'running'
-print(nginx.logs())
 print(nginx_cfg.output.decode())
-# assert 'server_name _;' in nginx_cfg.output.decode()
-# assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
-# assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
-# assert 'HTTP/1.1" 500' not in nginx.logs()
+print(nginx.logs())
+assert "php-fpm entered RUNNING state" in nginx.logs()
+assert "success: cron entered RUNNING state" in nginx.logs()
+assert "nginx entered RUNNING state" in nginx.logs()
+assert 'server_name _;' in nginx_cfg.output.decode()
+assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
+assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
+assert 'the configuration file /etc/nginx/nginx.conf syntax is ok' in nginx_cfg.output.decode()
+assert 'configuration file /etc/nginx/nginx.conf test is successful' in nginx_cfg.output.decode()
+assert 'HTTP/1.1" 500' not in nginx.logs()
 
 
 db = client.containers.get('db')

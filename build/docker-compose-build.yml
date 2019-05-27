@@ -1,5 +1,9 @@
 version: '2'
 
+volumes:
+    opencart-db:
+      driver: local
+
 services:
   opencart:
     image: trydirect/opencart:3.0.2
@@ -11,10 +15,24 @@ services:
           - "443:443"
           - "80:80"
     volumes:
-    #    - ./app:/home/opencart
-        - ./nginx:/etc/nginx/conf.d/
+#        - ./web:/home/opencart
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx/conf.d:/etc/nginx/conf.d
         - ./certs/letsencrypt:/etc/letsencrypt
         - ./certs/ssl:/etc/nginx/ssl
         - ./cron:/var/spool/cron/crontabs
+    links:
+        - db
     entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
-    working_dir: /home/${APPUSER}
+    working_dir: /home/opencart
+    env_file:
+      .env
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    volumes:
+        - opencart-db:/var/lib/mysql
+    env_file:
+      .env
