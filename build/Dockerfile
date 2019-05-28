@@ -11,7 +11,7 @@ RUN apt-get update -y -qq; apt-get install -y -qq software-properties-common; \
     groupadd -r -g 2000 opencart; useradd -r -u 2000 -g 2000 -m -c "app account" -d /home/opencart -s /bin/bash opencart; \
     mkdir -p /opt/letsencrypt
 COPY ./src/3.0.2.0.tar.gz /usr/src/app.tar.gz
-RUN  chown opencart:opencart  /usr/src/app.tar.gz
+RUN chown opencart:opencart  /usr/src/app.tar.gz
 ADD ./configs/php/cli/php.ini /etc/php/7.1/cli/php.ini
 ADD ./configs/php/fpm/php.ini /etc/php/7.1/fpm/php.ini
 ADD ./configs/php/www.conf /etc/php/7.1/fpm/pool.d/www.conf

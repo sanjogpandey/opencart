@@ -28,7 +28,6 @@ assert "success: cron entered RUNNING state" in nginx.logs()
 assert "nginx entered RUNNING state" in nginx.logs()
 assert 'server_name _;' in nginx_cfg.output.decode()
 assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
-assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
 assert 'the configuration file /etc/nginx/nginx.conf syntax is ok' in nginx_cfg.output.decode()
 assert 'configuration file /etc/nginx/nginx.conf test is successful' in nginx_cfg.output.decode()
 assert 'HTTP/1.1" 500' not in nginx.logs()
@@ -37,14 +36,14 @@ assert 'HTTP/1.1" 500' not in nginx.logs()
 db = client.containers.get('db')
 assert db.status == 'running'
 cnf = db.exec_run("/usr/sbin/mysqld --verbose  --help")
-print(cnf.output.decode())
-# assert 'mysqld  Ver 5.7' in cnf.output.decode()
 db_log = db.logs()
-print(db.logs())
-# assert "mysqld: ready for connections" in db_log.decode()
+print(db_log)
+assert "mysqld: ready for connections" in db_log.decode()
+assert "Version: '5.7" in db_log.decode()
 
 # check redirect to web installer
 app = client.containers.get('opencart')
-curl = app.exec_run("curl -i http://localhost")
-print(curl.output.decode())
-# assert 'Location: /setup/' in curl.output.decode()
+
+response = requests.get("http://localhost")
+assert '<base href="http://localhost/install/" />' in response.text
+assert 'License agreement' in response.text
