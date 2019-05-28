@@ -15,7 +15,7 @@ install:
 - cd build
 - docker-compose -f docker-compose-build.yml build
 - docker-compose -f docker-compose-build.yml up -d
-- docker-compose ps
+- docker-compose -f docker-compose-build.yml ps
 - cd $TRAVIS_BUILD_DIR
 before_script:
 - pip install requests
