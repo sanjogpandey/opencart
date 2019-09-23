@@ -34,7 +34,7 @@ services:
     hostname: opencart
     restart: always
     volumes:
-        - ./app:/home/opencart/web
+        - ./app:/home/opencart
         - ./configs/supervisord/opencart.conf:/etc/supervisor/conf.d/opencart.conf
     links:
         - db

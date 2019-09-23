@@ -25,7 +25,7 @@ services:
       - ./configs/certs/ssl:/etc/nginx/ssl
       - ./configs/supervisord/nginx.conf:/etc/supervisor/conf.d/nginx.conf
       - ./cron/nginx:/var/spool/cron/crontabs
-      - ./app:/home/opencart/web
+      - ./app:/home/opencart
     entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
 
   opencart:
@@ -35,7 +35,7 @@ services:
     hostname: opencart
     restart: always
     volumes:
-        - ./app:/home/opencart/web
+        - ./app:/home/opencart
         - ./configs/supervisord/opencart.conf:/etc/supervisor/conf.d/opencart.conf
         - ./configs/php/fpm/php.ini:/etc/php/7.1/fpm/php.ini
         - ./configs/php/www.conf:/etc/php/7.1/fpm/pool.d/www.conf
