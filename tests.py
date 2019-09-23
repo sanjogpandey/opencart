@@ -25,8 +25,8 @@ nginx = client.containers.get('opencart-nginx')
 nginx_cfg = nginx.exec_run("/usr/sbin/nginx -T")
 
 assert nginx.status == 'running'
-print(nginx_cfg.output.decode())
-print(nginx.logs())
+# print(nginx_cfg.output.decode())
+# print(nginx.logs())
 assert "php-fpm entered RUNNING state" in php.logs()
 assert "success: cron entered RUNNING state" in php.logs()
 assert "nginx entered RUNNING state" in nginx.logs()
@@ -41,11 +41,12 @@ db = client.containers.get('opencart-db')
 assert db.status == 'running'
 cnf = db.exec_run("/usr/sbin/mysqld --verbose  --help")
 db_log = db.logs()
-print(db_log)
+# print(db_log)
 assert "mysqld: ready for connections" in db_log.decode()
 assert "Version: '5.7" in db_log.decode()
 
 # check redirect to web installer
 response = requests.get("http://localhost")
+# print(response.text)
 assert '<base href="http://localhost/install/" />' in response.text
 assert 'License agreement' in response.text
