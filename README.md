@@ -34,6 +34,13 @@ Clone this project into your work directory:
 $ git clone https://github.com/trydirect/opencart.git
 ```
 
+
+## Quick deployment to cloud
+##### Amazon AWS, Digital Ocean, Hetzner and others
+[<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://try.direct/server/user/deploy/Im9wZW5jYXJ0fDZ8MjQi.EAoFeA.Z2W0rAFolcYIznV9xCR9ibhAcGg/)
+
+
+
 # Contributing
 
 1. Fork it (https://github.com/trydirect/opencart/fork)
